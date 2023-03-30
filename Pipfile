@@ -1,0 +1,26 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+django-on-heroku = "*"
+django-boost = "*"
+gunicorn = "*"
+django-extensions = "*"
+werkzeug = "*"
+uwsgi = "*"
+
+[dev-packages]
+flake8 = "*"
+autopep8 = "*"
+isort = "*"
+flake8-isort = "*"
+pre-commit = "*"
+mypy = "*"
+bandit = "*"
+django-types = "*"
+
+[requires]
+python_version = "3.11"

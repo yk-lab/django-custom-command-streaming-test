@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block bodyclass %}h-full bg-neutral-100{% endblock bodyclass %}
+
+{% block layout %}
+<div class="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-7xl">
+    <div class="bg-white px-4 py-8 shadow sm:rounded-lg sm:px-10">
+      {% block content %}
+      {% endblock content %}
+    </div>
+  </div>
+</div>
+{% endblock layout %}

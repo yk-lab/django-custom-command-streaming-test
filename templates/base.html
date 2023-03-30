@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="ja" class="h-full">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{% endblock title %}</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+  {% block css %}
+  {% endblock css %}
+</head>
+
+<body class="{% block bodyclass %}{% endblock bodyclass %}">
+  {% block layout %}
+  {% endblock layout %}
+  {% block javascript %}
+  {% endblock javascript %}
+</body>
+
+</html>

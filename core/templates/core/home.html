@@ -1,0 +1,55 @@
+{% extends "core/_layout.html" %}
+
+{% block title %}ホーム{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+  <button type="button" id="non_streaming_btn"
+    class="flex w-full justify-center rounded-md bg-amber-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-amber-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500">Non-Streaming</button>
+  <pre id="non_streaming_log_output" class="overflow-x-scroll"></pre>
+  <button type="button" id="streaming_btn"
+    class="flex w-full justify-center rounded-md bg-amber-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-amber-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500">Streaming</button>
+  <pre id="streaming_log_output" class="overflow-x-scroll"></pre>
+</div>
+
+
+{% endblock content %}
+
+{% block javascript %}
+<script lang="javascript">
+  document.getElementById('non_streaming_btn').addEventListener('click', () => {
+    fetch('/non_stream_logs/', {
+        method: 'POST',
+      })
+      .then(response => response.text())
+      .then(text => {
+        document.getElementById('non_streaming_log_output').textContent += text;
+      })
+      .catch(error => {
+        document.getElementById('non_streaming_log_output').textContent += error;
+      });
+  });
+  document.getElementById('streaming_btn').addEventListener('click', () => {
+    fetch('/stream_logs/', {
+        method: 'POST',
+      })
+      .then(response => response.body)
+      .then(stream => {
+        const reader = stream.getReader();
+        const decoder = new TextDecoder();
+
+        reader.read().then(function process({
+          done,
+          value
+        }) {
+          if (done) return;
+          const outputElement = document.getElementById('streaming_log_output');
+          outputElement.textContent += decoder.decode(value);
+          return reader.read().then(process);
+        });
+      }).catch(error => {
+        document.getElementById('streaming_log_output').textContent += error;
+      });
+  });
+</script>
+{% endblock javascript %}
